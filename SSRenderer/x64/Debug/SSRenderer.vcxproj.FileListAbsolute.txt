@@ -1,0 +1,4 @@
+D:\DirectXWorkspace\SSRenderer\x64\Debug\D3D12\D3D12Core.dll
+D:\DirectXWorkspace\SSRenderer\x64\Debug\D3D12\D3D12Core.pdb
+D:\DirectXWorkspace\SSRenderer\x64\Debug\D3D12\D3D12SDKLayers.dll
+D:\DirectXWorkspace\SSRenderer\x64\Debug\D3D12\D3D12SDKLayers.pdb

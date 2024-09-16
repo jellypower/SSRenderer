@@ -13,6 +13,8 @@
 
 #include "SSNativeTypes.h"
 #include "SSVector.h" 
+#include "SSContainer/SHasher.h"
+
 
 #include "SSDebugLogger.h"
 #include "SSNativeKeywords.h"

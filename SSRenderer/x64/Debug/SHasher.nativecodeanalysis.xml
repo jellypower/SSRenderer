@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+      <FILENAME>SHasher.cpp</FILENAME>
+      <LINE>64</LINE>
+      <COLUMN>16</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>NULL 포인터 'g_SHasherPool'을(를) 역참조하고 있습니다. </DESCRIPTION>
+    <FUNCTION>SS::SHashA::{ctor}</FUNCTION>
+    <DECORATED>??0SHashA@SS@@QEAA@PEBD@Z</DECORATED>
+    <FUNCLINE>53</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>54</LINE>
+        <COLUMN>9</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>56</LINE>
+        <COLUMN>19</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>branch</KIND>
+          <IMPORTANCE>Full</IMPORTANCE>
+          <MESSAGE>'g_SHasherPool'은(는) NULL일 수 있습니다. (이 분기 시작)</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>58</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>13</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>62</LINE>
+        <COLUMN>14</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>D:\DirectXWorkspace\SSRenderer\SSRenderer\SSEngineDefault\SSContainer\</FILEPATH>
+        <FILENAME>SHasher.cpp</FILENAME>
+        <LINE>64</LINE>
+        <COLUMN>16</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>usage</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>'g_SHasherPool'이(가) 역참조되었지만 여전히 NULL일 수 있습니다.</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>

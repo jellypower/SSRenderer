@@ -2,15 +2,20 @@
 
 #include "SSEngineDefault/SSEngineDefault.h"
 #include "SSRenderer/Private/DX12/Renderer/SSDX12Renderer.h"
+#include "SSRenderer/Private/DX12/RenderAsset/DX12MeshAssetManager.h"
+#include "SSRenderer/Private/DX12/Renderer/DX12GlobalRenderDevice.h"
+
 
 #include <dxgi.h>
 #include <dxgi1_4.h>
 #include <d3d12.h>
 #include <dxgidebug.h>
 
-ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd)
+ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd, GlobalRenderDeviceBase** OutGlobalRenderDevice)
 {
 	SSDX12Renderer* newRenderer = DBG_NEW SSDX12Renderer();
+	DX12GlobalRenderDevice* newGRD = DBG_NEW DX12GlobalRenderDevice();
+
 	newRenderer->hInst = InhInst;
 	newRenderer->hWnd = InhWnd;
 
@@ -66,10 +71,9 @@ ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd)
 		{
 			Adapter->GetDesc1(&AdapterDesc);
 
-			if (SUCCEEDED(D3D12CreateDevice(Adapter, featureLevels[featerLevelIndex], IID_PPV_ARGS(&newRenderer->_D3DDevice))))
+			if (SUCCEEDED(D3D12CreateDevice(Adapter, featureLevels[featerLevelIndex], IID_PPV_ARGS(&newGRD->g_D3DDevice))))
 			{
 				goto lb_exit;
-
 			}
 			Adapter->Release();
 			Adapter = nullptr;
@@ -78,12 +82,12 @@ ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd)
 	}
 lb_exit:
 
-	if (newRenderer->_D3DDevice == nullptr)
+	if (newGRD->g_D3DDevice == nullptr)
 	{
 		DEBUG_BREAK();
 		return nullptr;
 	}
-	ID3D12Device5* D3DDevice = newRenderer->_D3DDevice;
+	ID3D12Device5* D3DDevice = newGRD->g_D3DDevice;
 
 	if (DebugController != nullptr)
 	{
@@ -156,6 +160,7 @@ lb_exit:
 
 
 	// Describe and create the swap chain.
+	IDXGISwapChain3* localSwapChain;
 	{
 		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
 		swapChainDesc.Width = BackBufferWidth;
@@ -187,7 +192,9 @@ lb_exit:
 			return nullptr;
 		}
 
-		newRenderer->_renderTargetIdx = newRenderer->_swapChain->GetCurrentBackBufferIndex();
+		localSwapChain = newRenderer->_swapChain;
+
+		newRenderer->_renderTargetIdx = localSwapChain->GetCurrentBackBufferIndex();
 		SwapChain1->Release();
 		SwapChain1 = nullptr;
 	}
@@ -209,12 +216,42 @@ lb_exit:
 		for (uint32 i = 0; i < SWAP_CHAIN_FRAME_COUNT; i++)
 		{
 			ID3D12Resource* Buffer;
-			newRenderer->_swapChain->GetBuffer(i, IID_PPV_ARGS(&Buffer));
+			localSwapChain->GetBuffer(i, IID_PPV_ARGS(&Buffer));
 			newRenderer->_renderTargets[i] = Buffer;
-			newRenderer->_D3DDevice->CreateRenderTargetView(newRenderer->_renderTargets[i], nullptr, rtvHandle);
+			D3DDevice->CreateRenderTargetView(newRenderer->_renderTargets[i], nullptr, rtvHandle);
 			rtvHandle.ptr += newRenderer->_RTVDescriptorSize;
 		}
 	}
 
+	if (DebugController)
+	{
+		DebugController->Release();
+		DebugController = nullptr;
+	}
+	if (Adapter)
+	{
+		Adapter->Release();
+		Adapter = nullptr;
+	}
+	if (Factory)
+	{
+		Factory->Release();
+		Factory = nullptr;
+	}
+	
+	if (OutGlobalRenderDevice == nullptr)
+	{
+		DEBUG_BREAK();
+		return nullptr;
+	}
+	*OutGlobalRenderDevice = newGRD;
+	
 	return newRenderer;
+}
+
+MeshAssetManager* CreateMeshAssetManager()
+{
+	DX12MeshAssetManager* MeshAssetManager = DBG_NEW DX12MeshAssetManager();
+
+	return MeshAssetManager;
 }

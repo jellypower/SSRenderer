@@ -1,0 +1,59 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33135.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/utilityfunctions.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "bc589091f388fd753f521e5785938cd720e0509a08119133b3595d0f49b91f4e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/utilityfunctions.h"
+          },
+          "hashes": {
+            "sha-256": "8e712719383c43a0dc194cdde3765c2544a780493b474908a0cea134950789d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/ssnativekeywords.h"
+          },
+          "hashes": {
+            "sha-256": "909efe3aa06b1a291f0410212e203ece3a7ff66b05becabb505382710cc67b26"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/ssdebuglogger.h"
+          },
+          "hashes": {
+            "sha-256": "1ef69b64fc852133462784e33c4d48dac221a85b87dfb3088f92f8ef21137452"
+          }
+        }
+      ]
+    }
+  ]
+}

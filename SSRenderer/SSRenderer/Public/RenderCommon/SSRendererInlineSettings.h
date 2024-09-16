@@ -5,6 +5,8 @@
 // Common Params
 constexpr uint32 SUBGEOM_COUNT_MAX = 8;
 constexpr uint32 SWAP_CHAIN_FRAME_COUNT = 2;
+constexpr uint32 VERTEX_UV_MAP_COUNT_MAX = 2;
+constexpr uint32 VERTEX_SKINNING_BONE_COUNT_MAX = 4;
 
 
 

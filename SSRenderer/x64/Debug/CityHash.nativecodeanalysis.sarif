@@ -1,0 +1,75 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.38.33135.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/sscontainer/cityhash.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "307ff58d6949246944fb649235b1f478b038ceb1102f5a816d8ad08f5cb76774"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/sscontainer/cityhash.h"
+          },
+          "hashes": {
+            "sha-256": "b8c31c154ed82a321ec47fc42773496063a91f8ec9f35920c38f6ee8d8b909e6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/sscontainer/ssutilitycontainer.h"
+          },
+          "hashes": {
+            "sha-256": "ee65bf67d371f7f00b95f574dd13d66ea7104ca0795f1b9b37687713f868d2de"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/utilityfunctions.h"
+          },
+          "hashes": {
+            "sha-256": "8e712719383c43a0dc194cdde3765c2544a780493b474908a0cea134950789d0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/ssnativekeywords.h"
+          },
+          "hashes": {
+            "sha-256": "909efe3aa06b1a291f0410212e203ece3a7ff66b05becabb505382710cc67b26"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/directxworkspace/ssrenderer/ssrenderer/ssenginedefault/ssdebuglogger.h"
+          },
+          "hashes": {
+            "sha-256": "1ef69b64fc852133462784e33c4d48dac221a85b87dfb3088f92f8ef21137452"
+          }
+        }
+      ]
+    }
+  ]
+}

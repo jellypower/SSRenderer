@@ -6,6 +6,8 @@
 #include <shobjidl.h>
 
 
+#include "SSEngineMain/SSEngine.h"
+
 #include "SSEngineDefault/SSFrameInfo.h"
 #include "SSEngineDefault/SSDebugLogger.h"
 #include "SSEngineDefault/SSInput.h"
@@ -13,7 +15,11 @@
 #include "SSEngineDefault/SSEngineDefault.h"
 
 #include "SSRenderer/Public/SSRendererFactory.h"
+#include "SSRenderer/Public/RenderBase/GlobalRenderDeviceBase.h"
+#include "SSRenderer/Public/RenderBase/ISSRenderer.h"
+#include "SSRenderer/Public/RenderAsset/MeshAssetManager.h"
 
+#include "SSRenderer/Public/RenderBase/GlobalRenderInstanceCollection.h"
 
 
 
@@ -30,7 +36,6 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름�
 HRESULT					InitWindow(HINSTANCE, int, RECT);
 LRESULT CALLBACK		WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK		About(HWND, UINT, WPARAM, LPARAM);
-void					CheckRemainingObjects();
 
 void					AnalyzeCommandLineArguements();
 // HINSTANCE는 해당 어플리케이션에 해당하는 값. ("프로그램"에 대응, 똑같은 프로그램을 두 개 띄워도 HINSTANCE임)
@@ -106,8 +111,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 	}
 	g_hInst = hInstance;
 
-
-	ISSRenderer* Renderer =  CreateRenderer(g_hInst, g_hWnd);
+	
+	g_Renderer = CreateRenderer(g_hInst, g_hWnd, &g_RenderDevice);
+	
+	g_MeshAssetManager = CreateMeshAssetManager();
+	g_MeshAssetManager->InitializeMeshAssetPool();
 
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SSRENDERER));
 
@@ -131,24 +139,33 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 		else
 		{
 			SSFrameInfo::Get()->PerFrame();
-			// TODO: PerFrame
-//			g_Renderer.PerFrame();
+			EnginePerFrame();
 			SSInput::Get()->ProcessInputEndOfFrame();
 		}
 	}
 
 
-	SSFrameInfo::Release();
-	SSInput::Release();
-	delete Renderer;
+	// End Of Loop
+	{
+		SSFrameInfo::Release();
+		SSInput::Release();
 
+		delete g_MeshAssetManager;
+		g_MeshAssetManager = nullptr;
+		delete g_Renderer;
+		g_Renderer = nullptr;
+		delete g_RenderDevice;
+		g_RenderDevice = nullptr;
+	}
 
+	// Resource Check
+	{
 #ifdef _DEBUG
-	CheckRemainingObjects();
-	assert(_CrtDumpMemoryLeaks() == false);
-	assert(_CrtCheckMemory());
+		assert(_CrtDumpMemoryLeaks() == false);
+		assert(_CrtCheckMemory());
 #endif
-	return (int)msg.wParam;
+		return (int)msg.wParam;
+	}
 }
 
 
@@ -294,27 +311,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return (INT_PTR)FALSE;
 }
-
-
-#ifdef _DEBUG
-void CheckRemainingObjects() {
-	// TODO: Check
-	/*
-	HMODULE dxgidebugdll = GetModuleHandleW(L"dxgidebug.dll");
-	decltype(&DXGIGetDebugInterface) GetDebugInterface = reinterpret_cast<decltype(&DXGIGetDebugInterface)>(GetProcAddress(dxgidebugdll, "DXGIGetDebugInterface"));
-
-	IDXGIDebug* debug;
-
-	GetDebugInterface(IID_PPV_ARGS(&debug));
-
-	OutputDebugStringW(L"Starting Live Direct3D Object Dump:\r\n");
-	debug->ReportLiveObjects(DXGI_DEBUG_D3D11, DXGI_DEBUG_RLO_DETAIL);
-	OutputDebugStringW(L"Completed Live Direct3D Object Dump.\r\n");
-
-	debug->Release();
-	*/
-}
-#endif
 
 
 void AnalyzeCommandLineArguements()

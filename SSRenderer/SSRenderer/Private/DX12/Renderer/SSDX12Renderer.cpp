@@ -16,7 +16,6 @@ SSDX12Renderer::~SSDX12Renderer()
 
 	_swapChain->Release();
 	_D3DCommandQueue->Release();
-	_D3DDevice->Release();
 }
 
 SSRenderInstance* SSDX12Renderer::CreateTempRenderInstance()

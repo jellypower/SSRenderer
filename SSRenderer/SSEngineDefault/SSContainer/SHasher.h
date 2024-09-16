@@ -1,4 +1,5 @@
 #pragma once
+#include "SSEngineDefault/SSEngineInlineSettings.h"
 #include "SSEngineDefault/SSEngineDefault.h"
 
 namespace SS {

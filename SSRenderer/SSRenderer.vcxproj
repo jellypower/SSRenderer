@@ -134,10 +134,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.h" />
+    <ClInclude Include="SSEngineMain\SSEngine.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\SSAssetBase.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MeshAsset.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\MeshAsset.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12MeshAssetManager.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\MeshAssetManager.h" />
+    <ClInclude Include="SSRenderer\Public\RenderBase\GlobalRenderInstanceCollection.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\DX12GlobalRenderDevice.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="SSRenderer\Public\RenderBase\GlobalRenderDeviceBase.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SSBuildSettings.h" />
-    <ClInclude Include="SSRenderer\Public\RenderInterface\ISSRenderer.h" />
+    <ClInclude Include="SSRenderer\Public\RenderBase\ISSRenderer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SSRenderer\Private\DX12\Renderer\SSDX12Renderer.h" />
     <ClInclude Include="SSEngineDefault\SSEngineInlineSettings.h" />
@@ -166,7 +176,17 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SSRenderer\Public\RenderInterface\ISSRenderer.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.cpp" />
+    <ClCompile Include="SSEngineMain\SSEngine.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\SSAssetBase.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MeshAsset.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\MeshAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12MeshAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\MeshAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderBase\GlobalRenderInstanceCollection.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\DX12GlobalRenderDevice.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderBase\GlobalRenderDeviceBase.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderBase\ISSRenderer.cpp" />
     <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12Renderer.cpp" />
     <ClCompile Include="SSEngineDefault\SSContainer\CityHash.cpp" />
     <ClCompile Include="SSEngineDefault\SSContainer\SHasher.cpp" />
@@ -187,6 +207,7 @@
     <Image Include="SSRenderer.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,8 +1,11 @@
 #include "SSRendererFactory.h"
 
 #include "SSEngineDefault/SSEngineDefault.h"
+#include "SSEngineDefault/SSContainer/SSUtilityContainer.h"
 #include "SSRenderer/Private/DX12/Renderer/SSDX12Renderer.h"
 #include "SSRenderer/Private/DX12/RenderAsset/DX12MeshAssetManager.h"
+#include "SSRenderer/Private/DX12/RenderAsset/DX12MaterialAssetManager.h"
+#include "SSRenderer/Private/DX12/RenderAsset/DX12ShaderAssetManager.h"
 #include "SSRenderer/Private/DX12/Renderer/DX12GlobalRenderDevice.h"
 
 
@@ -73,6 +76,7 @@ ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd, GlobalRenderDeviceBa
 
 			if (SUCCEEDED(D3D12CreateDevice(Adapter, featureLevels[featerLevelIndex], IID_PPV_ARGS(&newGRD->g_D3DDevice))))
 			{
+				newGRD->g_D3DDevice->SetName(L"D3DDevice");
 				goto lb_exit;
 			}
 			Adapter->Release();
@@ -133,6 +137,7 @@ lb_exit:
 			DEBUG_BREAK();
 			return nullptr;
 		}
+		newRenderer->_D3DCommandQueue->SetName(L"D3DCommandQueue");
 	}
 
 
@@ -147,6 +152,7 @@ lb_exit:
 			DEBUG_BREAK();
 			return nullptr;
 		}
+		newRenderer->_RTVDescHeap->SetName(L"RenderTargetViewDescHeap");
 
 		newRenderer->_RTVDescriptorSize = D3DDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	}
@@ -218,6 +224,9 @@ lb_exit:
 			ID3D12Resource* Buffer;
 			localSwapChain->GetBuffer(i, IID_PPV_ARGS(&Buffer));
 			newRenderer->_renderTargets[i] = Buffer;
+			utf16 RenderTargetName[20];
+			wsprintf(RenderTargetName, L"RenderTarget%d", i);
+			newRenderer->_renderTargets[i]->SetName(RenderTargetName);
 			D3DDevice->CreateRenderTargetView(newRenderer->_renderTargets[i], nullptr, rtvHandle);
 			rtvHandle.ptr += newRenderer->_RTVDescriptorSize;
 		}
@@ -245,7 +254,7 @@ lb_exit:
 		return nullptr;
 	}
 	*OutGlobalRenderDevice = newGRD;
-	
+
 	return newRenderer;
 }
 
@@ -254,4 +263,17 @@ MeshAssetManager* CreateMeshAssetManager()
 	DX12MeshAssetManager* MeshAssetManager = DBG_NEW DX12MeshAssetManager();
 
 	return MeshAssetManager;
+}
+
+MaterialAssetManager* CreateMaterialAssetManager()
+{
+	DX12MaterialAssetManager* MaterialAssetManager = DBG_NEW DX12MaterialAssetManager();
+	
+	return MaterialAssetManager;
+}
+
+ShaderAssetManager* CreateShaderAssetManager()
+{
+	DX12ShaderAssetManager* ShaderAssetMaanager = DBG_NEW DX12ShaderAssetManager();
+	return ShaderAssetMaanager;
 }

@@ -9,7 +9,7 @@ class MeshAssetManager : public SSNoncopyable
 public:
 	virtual ~MeshAssetManager();
 
-	virtual void InitializeMeshAssetPool() = 0;
+	virtual void Initialize() = 0;
 
 	// TODO: 없애기
 	virtual MeshAsset* CreateTempMeshAsset() = 0;
@@ -17,6 +17,6 @@ public:
 
 public:
 	// TODO: 없애기
-	MeshAsset* TempMeshAsset = nullptr;
+	MeshAsset* _tempMeshAsset = nullptr;
 };
 

@@ -134,6 +134,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\FixedStringW.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\FixedStringA.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\BasicHashFunctionCollection.h" />
+    <ClInclude Include="DX12PipelineAsset.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\SSStringContainerUtilsCollection.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\SSDX12Utils.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\SSDX12RenderFactory.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\DX12RGlobalenderInstanceCollection.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12RootSignatureAsset.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12RootSignatureAssetManager.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\PipelineAsset.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12ShaderAsset.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\ShaderAsset.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12ShaderAssetManager.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\ShaderAssetManager.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MaterialAsset.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\MaterialAsset.h" />
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12MaterialAssetManager.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\HashMap.h" />
+    <ClInclude Include="SSRenderer\Public\RenderAsset\MaterialAssetManager.h" />
     <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.h" />
     <ClInclude Include="SSEngineMain\SSEngine.h" />
     <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\SSAssetBase.h" />
@@ -155,7 +175,7 @@
     <ClInclude Include="SSEngineDefault\SSContainer\FixedList.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\PooledLinkedList.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\PooledList.h" />
-    <ClInclude Include="SSEngineDefault\SSContainer\SHasher.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\SHashA.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\SSUtilityContainer.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\StringHashMapA.h" />
     <ClInclude Include="SSEngineDefault\SSDebugLogger.h" />
@@ -176,6 +196,24 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SSEngineDefault\SSContainer\SSString\FixedStringW.cpp" />
+    <ClCompile Include="SSEngineDefault\SSContainer\SSString\FixedStringA.cpp" />
+    <ClCompile Include="SSEngineDefault\SSContainer\BasicHashFunctionCollection.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12Utils.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12RenderFactory.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\DX12RGlobalenderInstanceCollection.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12PipelineAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12RootSignatureAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12RootSignatureAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\PipelineAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12ShaderAsset.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\ShaderAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12ShaderAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\ShaderAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MaterialAsset.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\MaterialAsset.cpp" />
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12MaterialAssetManager.cpp" />
+    <ClCompile Include="SSRenderer\Public\RenderAsset\MaterialAssetManager.cpp" />
     <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.cpp" />
     <ClCompile Include="SSEngineMain\SSEngine.cpp" />
     <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\SSAssetBase.cpp" />
@@ -189,7 +227,7 @@
     <ClCompile Include="SSRenderer\Public\RenderBase\ISSRenderer.cpp" />
     <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12Renderer.cpp" />
     <ClCompile Include="SSEngineDefault\SSContainer\CityHash.cpp" />
-    <ClCompile Include="SSEngineDefault\SSContainer\SHasher.cpp" />
+    <ClCompile Include="SSEngineDefault\SSContainer\SHashA.cpp" />
     <ClCompile Include="SSEngineDefault\SSFrameInfo.cpp" />
     <ClCompile Include="SSEngineDefault\SSInput.cpp" />
     <ClCompile Include="SSEngineDefault\SSStaticMath.cpp" />
@@ -207,8 +245,10 @@
     <Image Include="SSRenderer.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="SSEngineDefault\SSContainer\SSContainer.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

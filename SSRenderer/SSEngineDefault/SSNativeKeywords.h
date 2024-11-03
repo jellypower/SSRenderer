@@ -17,6 +17,7 @@ typedef wchar_t					utf16;
 typedef char					utf8;
 
 constexpr uint32 SS_UINT32_MAX = 0xffffffff;
+constexpr int32 INVALID_IDX = -1;
 
 #define FORCEINLINE __forceinline
 #define PATH_LEN_MAX 260

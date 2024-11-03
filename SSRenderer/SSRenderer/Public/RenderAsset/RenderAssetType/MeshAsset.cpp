@@ -1,7 +1,7 @@
 #include "MeshAsset.h"
 
-MeshAsset::MeshAsset(SS::SHashA InAsetName, SS::SHashA InAssetPath) :
-	SSAssetBase(InAsetName, InAssetPath)
+MeshAsset::MeshAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath) :
+	SSAssetBase(InAssetName, InAssetPath)
 
 {
 

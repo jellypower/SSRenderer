@@ -1,4 +1,4 @@
-#include "SHasher.h"
+#include "SHashA.h"
 #include "CityHash.h"
 using namespace SS;
 
@@ -104,13 +104,18 @@ bool SHashA::operator==(SHashA rhs) const
 	return this->_hashX == rhs._hashX;
 }
 
-const char* SHashA::c_str() const
+const char* SHashA::c_str(uint32* const outStrLen) const
 {
 	SHashPoolNode* curHashPoolNode = &g_SHasherPool[_hashH];
 
 	for (uint32 i = 0; i < _hashL; i++)
 	{
 		curHashPoolNode = curHashPoolNode->_next;
+	}
+
+	if (outStrLen != nullptr)
+	{
+		*outStrLen = curHashPoolNode->_strLen;
 	}
 
 	return curHashPoolNode->_str;

@@ -1,6 +1,7 @@
 #pragma once
 #include "SSEngineDefault/SSEngineInlineSettings.h"
 #include "SSEngineDefault/SSEngineDefault.h"
+#include "SSEngineMain/SSEngine.h"
 
 namespace SS {
 	class SHashA;
@@ -24,6 +25,7 @@ namespace SS {
 	// String Hasher -> 미리 해싱된 String값을 비교하여 스트링 비교 효율을 높혀주는 클래스
 	class SHashA
 	{
+		friend void ::EngineEndFrame();
 	private:
 		static SHashPoolNode* g_SHasherPool;
 		static uint32 g_sHasherPoolCnt;
@@ -39,20 +41,16 @@ namespace SS {
 		};
 
 
-
-
-	public:
-		static void InitHashPool(uint32 hashPoolSize = SHASHER_DEFAULT_POOL_SIZE); // TODO: InithHashPool 구현하기
-		static void ClearHashPool();
-
-
-
 	public:
 		SHashA(const char* str);
 
 		bool operator==(SHashA rhs) const;
-		const char* c_str() const;
+		const char* c_str(uint32* const outStrLen = nullptr) const;
+		uint64 GetDirectValue() const { return _hashX; }
 
+	private:
+		static void InitHashPool(uint32 hashPoolSize = SHASHER_DEFAULT_POOL_SIZE);
+		static void ClearHashPool();
 
 	};
 

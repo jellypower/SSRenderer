@@ -14,12 +14,20 @@
 #include "SSEngineDefault/SSContainer/StringHashMapA.h"
 #include "SSEngineDefault/SSEngineDefault.h"
 
-#include "SSRenderer/Public/SSRendererFactory.h"
 #include "SSRenderer/Public/RenderBase/GlobalRenderDeviceBase.h"
 #include "SSRenderer/Public/RenderBase/ISSRenderer.h"
 #include "SSRenderer/Public/RenderAsset/MeshAssetManager.h"
+#include "SSRenderer/Public/RenderAsset/MaterialAssetManager.h"
+#include "SSRenderer/Public/RenderAsset/ShaderAssetManager.h"
 
+#include "SSRenderer/Private/DX12/RenderAsset/DX12RootSignatureAssetManager.h"
+#include "SSRenderer/Private/DX12/RenderAsset/RenderAssetType/DX12RootSignatureAsset.h"
+
+#include "SSRenderer/Public/SSRendererFactory.h"
 #include "SSRenderer/Public/RenderBase/GlobalRenderInstanceCollection.h"
+
+#include "SSRenderer/Private/DX12/Renderer/SSDX12RenderFactory.h"
+#include "SSRenderer/Private/DX12/Renderer/DX12RGlobalenderInstanceCollection.h"
 
 
 
@@ -37,7 +45,7 @@ HRESULT					InitWindow(HINSTANCE, int, RECT);
 LRESULT CALLBACK		WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK		About(HWND, UINT, WPARAM, LPARAM);
 
-void					AnalyzeCommandLineArguements();
+void					AnalyzeCommandLineArgs();
 // HINSTANCE는 해당 어플리케이션에 해당하는 값. ("프로그램"에 대응, 똑같은 프로그램을 두 개 띄워도 HINSTANCE임)
 // HWND는 해당 어플리케이션의 하나의 "윈도우"에 해당하는 값 ("윈도우"에 대흥, 똑같은 프로그램을 두 개 띄우면 두 HWND는 다름)
 
@@ -84,7 +92,7 @@ HRESULT FindFilePathWithOpenDialog(SS::FixedStringW<PATH_LEN_MAX>& OutFilePath)
 
 int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 {
-	SS_LOG("========================== Select file to Open ==========================");
+	SS_LOG("========================== Select file to Open ==========================\n");
 	SS::FixedStringW<PATH_LEN_MAX> FbxFilePathToLoad;
 	FindFilePathWithOpenDialog(FbxFilePathToLoad);
 	if (FbxFilePathToLoad.GetLen() == 0)
@@ -92,7 +100,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 		return 0;
 	}
 
-	AnalyzeCommandLineArguements();
+	AnalyzeCommandLineArgs();
 
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -113,9 +121,22 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 
 	
 	g_Renderer = CreateRenderer(g_hInst, g_hWnd, &g_RenderDevice);
-	
+
+	g_RootSignatureAssetManager = CreateRootSignatureAssetManager();
+	g_RootSignatureAssetManager->Initialize();
+	// DX12: Only
+	{
+		g_RootSignatureAssetManager->_tempRootSignatureAsset = g_RootSignatureAssetManager->CreateTempRootSignature();
+	}
 	g_MeshAssetManager = CreateMeshAssetManager();
-	g_MeshAssetManager->InitializeMeshAssetPool();
+	g_MeshAssetManager->Initialize();
+
+	g_ShaderAssetManager = CreateShaderAssetManager();
+	g_ShaderAssetManager->Initialize();
+
+	g_MaterialAssetManager = CreateMaterialAssetManager();
+	g_MaterialAssetManager->Initialize();
+	
 
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SSRENDERER));
 
@@ -129,6 +150,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 	SSFrameInfo::Get()->BeginFrame();
 //	g_Renderer.BeginFrame();
 
+	EngineBeginFrame();
 	while (WM_QUIT != msg.message)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -143,17 +165,34 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int nCmdShow)
 			SSInput::Get()->ProcessInputEndOfFrame();
 		}
 	}
-
+	EngineEndFrame();
 
 	// End Of Loop
 	{
 		SSFrameInfo::Release();
 		SSInput::Release();
 
+		delete g_MaterialAssetManager;
+		g_MaterialAssetManager = nullptr;
+
+		delete g_ShaderAssetManager;
+		g_ShaderAssetManager = nullptr;
+
 		delete g_MeshAssetManager;
 		g_MeshAssetManager = nullptr;
+
+		// DX12: Only
+		{
+			g_RootSignatureAssetManager->_tempRootSignatureAsset->ReleaseGPUInstance();
+			delete g_RootSignatureAssetManager->_tempRootSignatureAsset;
+			g_RootSignatureAssetManager->_tempRootSignatureAsset = nullptr;
+		}
+		delete g_RootSignatureAssetManager;
+		g_RootSignatureAssetManager = nullptr;
+
 		delete g_Renderer;
 		g_Renderer = nullptr;
+
 		delete g_RenderDevice;
 		g_RenderDevice = nullptr;
 	}
@@ -313,7 +352,7 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
-void AnalyzeCommandLineArguements()
+void AnalyzeCommandLineArgs()
 {
 	int32 argc;
 	LPWSTR* argv = CommandLineToArgvW(GetCommandLine(), &argc);

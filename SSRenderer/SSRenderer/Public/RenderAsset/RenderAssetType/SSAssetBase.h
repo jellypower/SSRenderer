@@ -9,7 +9,7 @@ private:
 	SS::SHashA _assetPath;
 
 public:
-	SSAssetBase(SS::SHashA InAsetName, SS::SHashA InAssetPath);
+	SSAssetBase(SS::SHashA InAssetName, SS::SHashA InAssetPath);
 	virtual ~SSAssetBase();
 
 	SS::SHashA GetAssetName() const { return _assetName; }

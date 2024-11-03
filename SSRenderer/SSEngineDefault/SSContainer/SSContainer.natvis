@@ -91,5 +91,48 @@
   </Type>
 
 
+  <Type Name="SS::HashMap&lt;*,*,*&gt;">
+    <DisplayString>{{Count = { _cnt }}}</DisplayString>
+    <Expand>
+      <CustomListItems MaxItemsPerView="100">
+        <Variable Name="iBucket" InitialValue="0" />
+        <Variable Name="pBucket" InitialValue="(_bucketHeadList._data + iBucket)->_next"/>
+
+        <Size>_cnt</Size>
+        <Item>pBucket->_pair</Item>
+        
+        <Loop>
+          <If Condition="pBucket == nullptr">
+            <Exec>iBucket++</Exec>
+            <Break Condition ="iBucket >= _bucketHeadList._size"/>
+            
+            <Exec>pBucket = _bucketHeadList._data[iBucket]._next</Exec>
+          </If>
+
+          <Item>pBucket->_pair</Item>
+          <Exec>pBucket = pBucket->_next</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
+
+  <Type Name="SS::SHashA">
+    <DisplayString>{{HashX = { _hashX }}}</DisplayString>
+    <Expand>
+      <CustomListItems MaxItemsPerView="1">
+        <Variable Name="HashPoolNode" InitialValue="(g_SHasherPool + _hashH % g_sHasherPoolCnt)"/>
+        <Variable Name="iNodeStepCnt" InitialValue="_hashL"/>
+
+        <Loop>
+          <Exec>iNodeStepCnt--</Exec>
+          <If Condition="iNodeStepCnt == -1">
+            <Item Name ="Str">HashPoolNode->_str</Item>
+            <Break/>
+          </If>
+          <Exec>HashPoolNode = HashPoolNode->_next</Exec>
+        </Loop>
+      </CustomListItems>
+    </Expand>
+  </Type>
 
 </AutoVisualizer>

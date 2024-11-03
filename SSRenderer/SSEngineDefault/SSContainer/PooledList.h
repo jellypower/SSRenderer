@@ -23,15 +23,17 @@ namespace SS
 
 		void PushBack(const T& newData);
 		void PushBack(T&& newData);
+		void RemoveAt(int32 Idx);
+		void RemoveAtAndFillLast(int32 Idx);
 
-		void PushBackCapacity(const T& newData);
 
 		void Resize(uint32 newSize);
 		void Clear();
-		void IncreaseCapacityAndCopy(uint32 newCapacity);
+		void Reserve(uint32 newCapacity);
 
 
 		FORCEINLINE bool IsFull() const { return _size == _capacity; }
+		bool IsValidIndex(int32 idx) const;
 
 		FORCEINLINE uint32 GetSize() const { return _size; }
 		FORCEINLINE uint32 GetCapacity() const { return _capacity; }
@@ -100,7 +102,7 @@ namespace SS
 		_capacity = capacity;
 		_size = 0;
 		_data = nullptr;
-		if (capacity != 0) {
+		if (capacity > 0) {
 			_capacity = capacity;
 			_data = (T*)DBG_MALLOC(sizeof(T) * _capacity);
 		}
@@ -143,7 +145,10 @@ namespace SS
 	template <typename T>
 	void PooledList<T>::PushBack(const T& newData)
 	{
-		assert(_size < _capacity);
+		if (_size >= _capacity)
+		{
+			Reserve(GetCapacity() * 2);
+		}
 		new(_data + _size) T(newData);
 		_size++;
 	}
@@ -151,19 +156,51 @@ namespace SS
 	template <typename T>
 	void PooledList<T>::PushBack(T&& newData)
 	{
-		assert(_size < _capacity);
+		if (_size >= _capacity)
+		{
+			Reserve((GetCapacity() + 1) * 2);
+		}
 		new(_data + _size) T(SS::forward<T>(newData));
 		_size++;
 	}
 
-	template<typename T>
-	inline void PooledList<T>::PushBackCapacity(const T& newData)
+	template <typename T>
+	void PooledList<T>::RemoveAt(int32 Idx)
 	{
-		if (_size >= _capacity)
+		if(Idx >= _size)
 		{
-			IncreaseCapacityAndCopy(GetCapacity() * 2);
+			SS_INTEERUPT();
+			return;
 		}
-		PushBack(newData);
+
+		T* dataToRemovePtr = _data + Idx;
+		dataToRemovePtr->~T();
+		int32 sizeToMove = _size - Idx - 1;
+		memmove(dataToRemovePtr, dataToRemovePtr + 1, sizeToMove);
+		_size--;
+	}
+
+	template <typename T>
+	void PooledList<T>::RemoveAtAndFillLast(int32 Idx)
+	{
+		if (Idx >= _size)
+		{
+			SS_INTEERUPT();
+			return;
+		}
+
+		T* dataToRemove = _data + Idx;
+		dataToRemove->~T();
+
+		if(_size == Idx + 1)
+		{
+			_size--;
+			return;
+		}
+
+		T* lastData = _data + (_size - 1);
+		memcpy(dataToRemove, lastData, sizeof(T));
+		_size--;
 	}
 
 	template <typename T>
@@ -190,8 +227,13 @@ namespace SS
 	}
 
 	template <typename T>
-	void PooledList<T>::IncreaseCapacityAndCopy(uint32 newCapacity)
+	void PooledList<T>::Reserve(uint32 newCapacity)
 	{
+		if (newCapacity < _capacity)
+		{
+			return;
+		}
+
 		T* newData = (T*)malloc(sizeof(T) * newCapacity);
 		memcpy(newData, _data, sizeof(T) * _capacity);
 		free(_data);
@@ -200,23 +242,38 @@ namespace SS
 	}
 
 	template <typename T>
+	bool PooledList<T>::IsValidIndex(int32 idx) const
+	{
+		return 0 <= idx && idx < _size;
+	}
+
+	template <typename T>
 	T& PooledList<T>::operator[](const uint32 idx) const
 	{
-		assert(idx < _capacity);
+		if(idx >= _size)
+		{
+			SS_INTEERUPT();
+		}
 		return _data[idx];
 	}
 
 	template<typename T>
-	inline PooledList<T>& PooledList<T>::operator=(PooledList<T>&& origin)
+	PooledList<T>& PooledList<T>::operator=(PooledList<T>&& origin)
 	{
+		for(int32 i=0;i<_size;i++)
+		{
+			_data[i].~T();
+		}
+		free(_data);
 		_size = origin._size;
 		_capacity = origin._capacity;
-		delete _data;
+
 		_data = origin._data;
 		origin._data = nullptr;
 		origin._size = 0;
 		origin._capacity = 0;
-		// TODO: 여기에 return 문을 삽입합니다.
+
+		return *this;
 	}
 
 

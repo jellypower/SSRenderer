@@ -36,7 +36,7 @@
     <ClInclude Include="SSEngineDefault\SSContainer\PooledList.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SSEngineDefault\SSContainer\SHasher.h">
+    <ClInclude Include="SSEngineDefault\SSContainer\SHashA.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SSEngineDefault\SSContainer\SSUtilityContainer.h">
@@ -135,6 +135,66 @@
     <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\MaterialAssetManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSEngineDefault\SSContainer\HashMap.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12MaterialAssetManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\MaterialAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MaterialAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\ShaderAssetManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12ShaderAssetManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\ShaderAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12ShaderAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Public\RenderAsset\RenderAssetType\PipelineAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\DX12RootSignatureAssetManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12RootSignatureAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DX12PipelineAsset.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\DX12RGlobalenderInstanceCollection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\SSDX12RenderFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRenderer\Private\DX12\Renderer\SSDX12Utils.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSEngineDefault\SSContainer\BasicHashFunctionCollection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\FixedStringA.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\FixedStringW.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SSEngineDefault\SSContainer\SSString\SSStringContainerUtilsCollection.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -143,7 +203,7 @@
     <ClCompile Include="SSEngineDefault\SSContainer\CityHash.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SSEngineDefault\SSContainer\SHasher.cpp">
+    <ClCompile Include="SSEngineDefault\SSContainer\SHashA.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SSEngineDefault\SSFrameInfo.cpp">
@@ -203,6 +263,60 @@
     <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\VertexTypes\SSDefaultVertexTypes.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SSRenderer\Public\RenderAsset\MaterialAssetManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12MaterialAssetManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\MaterialAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12MaterialAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Public\RenderAsset\ShaderAssetManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12ShaderAssetManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\ShaderAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12ShaderAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Public\RenderAsset\RenderAssetType\PipelineAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\DX12RootSignatureAssetManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12RootSignatureAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\RenderAsset\RenderAssetType\DX12PipelineAsset.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\DX12RGlobalenderInstanceCollection.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12RenderFactory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12Utils.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSEngineDefault\SSContainer\BasicHashFunctionCollection.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSEngineDefault\SSContainer\SSString\FixedStringA.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SSEngineDefault\SSContainer\SSString\FixedStringW.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SSRenderer.rc">
@@ -219,6 +333,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="SSEngineDefault\SSContainer\SSContainer.natvis" />
   </ItemGroup>
 </Project>

@@ -51,8 +51,8 @@
 #define DBG_MALLOC(s) _malloc_dbg(s,_NORMAL_BLOCK,__FILE__,__LINE__)
 #include <stdlib.h>
 
-#define DEBUG_BREAK() __debugbreak();
-
+#define DEBUG_BREAK() __debugbreak()
+#define SS_INTEERUPT() __debugbreak()
 
 // ======================================================================================
 #else
@@ -75,5 +75,6 @@
 #define DBG_MALLOC(s) malloc(s)
 
 #define DEBUG_BREAK()
+#define INTEERUPT() __debugbreak()
 
 #endif

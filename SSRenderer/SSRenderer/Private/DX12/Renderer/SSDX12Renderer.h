@@ -16,7 +16,7 @@ class SSDX12Renderer : public ISSRenderer
 	friend ISSRenderer* CreateRenderer(HINSTANCE InhInst, HWND InhWnd, GlobalRenderDeviceBase** OutGlobalRenderDevice);
 
 public:
-	virtual ~SSDX12Renderer() override;
+	virtual ~SSDX12Renderer();
 
 
 public:

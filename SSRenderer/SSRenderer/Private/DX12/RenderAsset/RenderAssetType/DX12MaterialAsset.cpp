@@ -15,7 +15,7 @@
 #include "SSRenderer/Private/DX12/RenderAsset/DX12RootSignatureAssetManager.h"
 
 
-DX12MaterialAsset::DX12MaterialAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath) :
+DX12MaterialAsset::DX12MaterialAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath) :
 	MaterialAsset(InAssetName, InAssetPath)
 {
 

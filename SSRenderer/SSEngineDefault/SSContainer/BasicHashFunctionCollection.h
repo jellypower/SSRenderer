@@ -7,4 +7,4 @@
 int32 HashValue(int32 inValue);
 int32 HashValue(int64 inValue);
 
-int32 HashValue(const SS::SHashA& inValue);
+int32 HashValue(const SS::SHasherA& inValue);

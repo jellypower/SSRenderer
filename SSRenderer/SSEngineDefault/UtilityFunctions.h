@@ -10,4 +10,6 @@ namespace SS
 
 	// return: written bytes num
 	uint32 UTF16StrToUtf8Str(const utf16* utf16Str, uint32 utf16StrLen, utf8* outUtf8Str, uint32 utf8BufferSize);
+
+	void LowerStr(const char* inStr, char* outStr);
 };

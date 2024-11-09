@@ -8,6 +8,6 @@ private:
 	bool _isUsableOnGPU = false;
 
 public:
-	MeshAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath);
+	MeshAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath);
 };
 

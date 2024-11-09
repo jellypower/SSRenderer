@@ -13,7 +13,7 @@
 
 #include "SSNativeTypes.h"
 #include "SSVector.h" 
-#include "SSContainer/SHashA.h"
+#include "SSContainer/SHasherA.h"
 
 
 #include "SSDebugLogger.h"

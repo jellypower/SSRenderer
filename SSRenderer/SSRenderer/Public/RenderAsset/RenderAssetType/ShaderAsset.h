@@ -22,7 +22,7 @@ enum class EShaderType
 class ShaderAsset : public SSAssetBase
 {
 public:
-	ShaderAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath, const char* entryPoint, EShaderType InShaderType);
+	ShaderAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath, const char* entryPoint, EShaderType InShaderType);
 
 	virtual bool CompileShader() = 0;
 

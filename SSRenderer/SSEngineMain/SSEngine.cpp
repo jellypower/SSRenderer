@@ -30,16 +30,17 @@ void EngineBeginFrame()
 }
 
 
-SS::HashMap<SS::SHashA, SS::FixedStringA<PATH_LEN_MAX>, 200> HashMap;
+SS::HashMap<SS::SHasherA, SS::FixedStringA<PATH_LEN_MAX>, 200> HashMap;
 
 void EnginePerFrame()
 {
-	
+	SS::SHasherA A = "AA";
+	SS::SHasherA a = "aa";
 }
 
 void EngineEndFrame()
 {
-	SS::SHashA::ClearHashPool();
+	SS::SHasherA::ClearHashPool();
 	g_MaterialAssetManager->_tempMaterialAsset->ReleaseGPUInstance();
 	delete g_MaterialAssetManager->_tempMaterialAsset;
 	delete g_ShaderAssetManager->_tempPixelShaderAsset;

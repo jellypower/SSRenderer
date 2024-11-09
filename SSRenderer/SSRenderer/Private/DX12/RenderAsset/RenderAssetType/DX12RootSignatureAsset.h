@@ -8,7 +8,7 @@ class DX12RootSignatureAsset : public SSAssetBase
 {
 	friend class DX12RootSignatureAssetManager;
 public:
-	DX12RootSignatureAsset(SS::SHashA rootSignaterName);
+	DX12RootSignatureAsset(SS::SHasherA rootSignaterName);
 	virtual ~DX12RootSignatureAsset();
 
 	bool InitGPUInstance(CD3DX12_ROOT_SIGNATURE_DESC params);

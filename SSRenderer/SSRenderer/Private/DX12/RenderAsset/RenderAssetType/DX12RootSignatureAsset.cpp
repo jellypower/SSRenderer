@@ -5,7 +5,7 @@
 
 #include <d3d12.h>
 
-DX12RootSignatureAsset::DX12RootSignatureAsset(SS::SHashA rootSignaterName) :
+DX12RootSignatureAsset::DX12RootSignatureAsset(SS::SHasherA rootSignaterName) :
 	SSAssetBase(rootSignaterName, "NoPath")
 {
 

@@ -3,6 +3,6 @@
 class DX12MeshAsset : public MeshAsset
 {
 public:
-	DX12MeshAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath);
+	DX12MeshAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath);
 };
 

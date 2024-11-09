@@ -1,7 +1,7 @@
 #include "ShaderAsset.h"
 
 
-ShaderAsset::ShaderAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath, const char* entryPoint, EShaderType InShaderType):
+ShaderAsset::ShaderAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath, const char* entryPoint, EShaderType InShaderType):
 	SSAssetBase(InAssetName, InAssetPath)
 {
 	_entryPointName = entryPoint;

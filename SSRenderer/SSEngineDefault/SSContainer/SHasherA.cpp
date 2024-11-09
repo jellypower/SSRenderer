@@ -1,5 +1,7 @@
-#include "SHashA.h"
+#include "SHasherA.h"
+
 #include "CityHash.h"
+#include "SSEngineDefault/UtilityFunctions.h"
 using namespace SS;
 
 
@@ -16,11 +18,12 @@ SHashPoolNode::SHashPoolNode(const char* inStr, uint32 inStrLen)
 
 
 
-SHashPoolNode* SHashA::g_SHasherPool = nullptr;
-uint32 SHashA::g_sHasherPoolCnt = 0;
+SHashPoolNode* SHasherA::g_SHasherPool = nullptr;
+uint32 SHasherA::g_sHasherPoolCnt = 0;
+SHasherA SHasherA::Empty = SHasherA("EMPTY");
 
 
-void SHashA::ClearHashPool()
+void SHasherA::ClearHashPool()
 {
 	for (uint32 i = 0; i < g_sHasherPoolCnt; i++)
 	{
@@ -44,13 +47,13 @@ void SHashA::ClearHashPool()
 	g_SHasherPool = nullptr;
 }
 
-void SS::SHashA::InitHashPool(uint32 hashPoolSize)
+void SS::SHasherA::InitHashPool(uint32 hashPoolSize)
 {
 	g_SHasherPool = DBG_NEW SHashPoolNode[hashPoolSize];
 	g_sHasherPoolCnt = hashPoolSize;
 }
 
-SHashA::SHashA(const char* inStr)
+SHasherA::SHasherA(const char* inStr)
 	: _hashX(0)
 {
 	if (g_SHasherPool == nullptr)
@@ -59,6 +62,18 @@ SHashA::SHashA(const char* inStr)
 	}
 
 	const int64 inStrlen = strlen(inStr);
+	if(inStrlen > SHASHER_STRLEN_MAX)
+	{
+		_hashX = SHasherA::Empty._hashX;
+		return;
+	}
+
+	char loweredStr[SHASHER_STRLEN_MAX + 1];
+
+	
+	SS::LowerStr(inStr, loweredStr);
+
+
 	const uint32 strHashValue = CityHash32(inStr, inStrlen) % g_sHasherPoolCnt;
 
 	SHashPoolNode* curHashPoolNode = &g_SHasherPool[strHashValue];
@@ -99,12 +114,14 @@ SHashA::SHashA(const char* inStr)
 	_hashL = sameHashValueCnt;
 }
 
-bool SHashA::operator==(SHashA rhs) const
+bool SHasherA::operator==(SHasherA rhs) const
 {
+	if (this->_hashX == SHasherA::Empty._hashX ||
+		rhs._hashX == SHasherA::Empty._hashX) return false;
 	return this->_hashX == rhs._hashX;
 }
 
-const char* SHashA::c_str(uint32* const outStrLen) const
+const char* SHasherA::C_Str(uint32* const outStrLen) const
 {
 	SHashPoolNode* curHashPoolNode = &g_SHasherPool[_hashH];
 

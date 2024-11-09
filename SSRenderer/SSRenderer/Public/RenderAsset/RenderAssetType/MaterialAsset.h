@@ -4,7 +4,7 @@
 class MaterialAsset : public SSAssetBase
 {
 public:
-	MaterialAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath);
+	MaterialAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath);
 
 	virtual bool InitGPUInstance() = 0;
 	virtual void ReleaseGPUInstance() = 0;

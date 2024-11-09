@@ -3,12 +3,13 @@
 #include "SSEngineDefault/SSEngineDefault.h"
 #include "SSEngineMain/SSEngine.h"
 
+
 namespace SS {
-	class SHashA;
+	class SHasherA;
 
 	class SHashPoolNode
 	{
-		friend class SHashA;
+		friend class SHasherA;
 	private:
 		char* _str = nullptr;
 		uint32 _strLen = 0;
@@ -23,9 +24,11 @@ namespace SS {
 namespace SS {
 
 	// String Hasher -> 미리 해싱된 String값을 비교하여 스트링 비교 효율을 높혀주는 클래스
-	class SHashA
+	class SHasherA
 	{
 		friend void ::EngineEndFrame();
+	public:
+		static SHasherA Empty;
 	private:
 		static SHashPoolNode* g_SHasherPool;
 		static uint32 g_sHasherPoolCnt;
@@ -42,10 +45,10 @@ namespace SS {
 
 
 	public:
-		SHashA(const char* str);
+		SHasherA(const char* str);
 
-		bool operator==(SHashA rhs) const;
-		const char* c_str(uint32* const outStrLen = nullptr) const;
+		bool operator==(SHasherA rhs) const;
+		const char* C_Str(uint32* const outStrLen = nullptr) const;
 		uint64 GetDirectValue() const { return _hashX; }
 
 	private:

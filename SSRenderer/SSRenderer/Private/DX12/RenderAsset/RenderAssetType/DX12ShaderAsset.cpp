@@ -3,7 +3,7 @@
 
 #include <d3dcompiler.h>
 
-DX12ShaderAsset::DX12ShaderAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath, const char* entryPoint, EShaderType InShaderType) :
+DX12ShaderAsset::DX12ShaderAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath, const char* entryPoint, EShaderType InShaderType) :
 	ShaderAsset(InAssetName, InAssetPath, entryPoint, InShaderType)
 {
 }
@@ -29,7 +29,7 @@ bool DX12ShaderAsset::CompileShader()
 	ID3DBlob* errorBlob = nullptr;
 
 	uint32 strLen = 0;
-	const char* AssetPathA = GetAssetPath().c_str(&strLen);
+	const char* AssetPathA = GetAssetPath().C_Str(&strLen);
 
 	utf16 shaderPath[256];
 	SS::CharStrToUTF16Str(AssetPathA, strLen, shaderPath, 256);

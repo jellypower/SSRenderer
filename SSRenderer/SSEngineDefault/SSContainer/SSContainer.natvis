@@ -116,7 +116,7 @@
     </Expand>
   </Type>
 
-  <Type Name="SS::SHashA">
+  <Type Name="SS::SHasherA">
     <DisplayString>{{HashX = { _hashX }}}</DisplayString>
     <Expand>
       <CustomListItems MaxItemsPerView="1">

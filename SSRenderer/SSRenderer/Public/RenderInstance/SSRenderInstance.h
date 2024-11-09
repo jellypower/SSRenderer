@@ -7,12 +7,12 @@
 class SSRenderInstance
 {
 public:
-	SS::SHashA GetName() { return _name; }
+	SS::SHasherA GetName() { return _name; }
 	Transform GetTransform() { return _relativeTransform; }
 
 
 private:
-	SS::SHashA _name;
+	SS::SHasherA _name;
 	Transform _relativeTransform;
 };
 

@@ -19,3 +19,15 @@ uint32 SS::UTF16StrToUtf8Str(const utf16* utf16Str, uint32 utf16StrLen, utf8* ou
 	outUtf8Str[writtenBytes] = '\0';
 	return writtenBytes;
 }
+
+void SS::LowerStr(const char* inStr, char* outStr)
+{
+	int64 Cnt = 0;
+
+	while(true)
+	{
+		outStr[Cnt++] = tolower(*inStr);
+		if (*inStr == '\0') break;
+		inStr++;
+	}
+}

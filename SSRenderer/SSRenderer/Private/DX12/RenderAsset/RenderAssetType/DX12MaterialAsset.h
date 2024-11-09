@@ -6,7 +6,7 @@
 class DX12MaterialAsset : public MaterialAsset
 {
 public:
-	DX12MaterialAsset(SS::SHashA InAssetName, SS::SHashA InAssetPath);
+	DX12MaterialAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath);
 
 	virtual bool InitGPUInstance() override;
 	virtual void ReleaseGPUInstance() override;

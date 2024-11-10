@@ -8,7 +8,7 @@ void DX12MaterialAssetManager::Initialize()
 
 MaterialAsset* DX12MaterialAssetManager::CreateTempMaterialAsset()
 {
-    DX12MaterialAsset* newAsset = DBG_NEW DX12MaterialAsset("TempMaterial", "NoPath");
+    DX12MaterialAsset* newAsset = DBG_NEW DX12MaterialAsset(L"TempMaterial", L"NoPath");
 
     return newAsset;
 }

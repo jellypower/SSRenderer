@@ -1,4 +1,4 @@
-#include "SHasherA.h"
+#include "SHasherW.h"
 
 #include "CityHash.h"
 #include "SSEngineDefault/UtilityFunctions.h"
@@ -9,21 +9,21 @@ SS::SHashPoolNode::SHashPoolNode()
 {
 }
 
-SHashPoolNode::SHashPoolNode(const char* inStr, uint32 inStrLen)
+SHashPoolNode::SHashPoolNode(const utf16* inStr, uint32 inStrLen)
 {
 	_strLen = inStrLen;
-	_str = DBG_NEW char[_strLen + 1];
-	memcpy(_str, inStr, inStrLen + 1);
+	_str = DBG_NEW utf16[_strLen + 1];
+	memcpy(_str, inStr, (inStrLen + 1) * sizeof(utf16));
 }
 
 
 
-SHashPoolNode* SHasherA::g_SHasherPool = nullptr;
-uint32 SHasherA::g_sHasherPoolCnt = 0;
-SHasherA SHasherA::Empty = SHasherA("EMPTY");
+SHashPoolNode* SHasherW::g_SHasherPool = nullptr;
+uint32 SHasherW::g_sHasherPoolCnt = 0;
+SHasherW SHasherW::Empty = SHasherW(L"EMPTY");
 
 
-void SHasherA::ClearHashPool()
+void SHasherW::ClearHashPool()
 {
 	for (uint32 i = 0; i < g_sHasherPoolCnt; i++)
 	{
@@ -47,13 +47,13 @@ void SHasherA::ClearHashPool()
 	g_SHasherPool = nullptr;
 }
 
-void SS::SHasherA::InitHashPool(uint32 hashPoolSize)
+void SS::SHasherW::InitHashPool(uint32 hashPoolSize)
 {
 	g_SHasherPool = DBG_NEW SHashPoolNode[hashPoolSize];
 	g_sHasherPoolCnt = hashPoolSize;
 }
 
-SHasherA::SHasherA(const char* inStr)
+SHasherW::SHasherW(const utf16* inStr)
 	: _hashX(0)
 {
 	if (g_SHasherPool == nullptr)
@@ -61,20 +61,20 @@ SHasherA::SHasherA(const char* inStr)
 		InitHashPool();
 	}
 
-	const int64 inStrlen = strlen(inStr);
+	const int64 inStrlen = wcslen(inStr);
 	if(inStrlen > SHASHER_STRLEN_MAX)
 	{
-		_hashX = SHasherA::Empty._hashX;
+		_hashX = SHasherW::Empty._hashX;
 		return;
 	}
 
-	char loweredStr[SHASHER_STRLEN_MAX + 1];
+	utf16 loweredStr[SHASHER_STRLEN_MAX + 1];
 
 	
 	SS::LowerStr(inStr, loweredStr);
 
 
-	const uint32 strHashValue = CityHash32(inStr, inStrlen) % g_sHasherPoolCnt;
+	const uint32 strHashValue = CityHash32(reinterpret_cast<const char*>(loweredStr), inStrlen * (sizeof(utf16) / sizeof(char) )) % g_sHasherPoolCnt;
 
 	SHashPoolNode* curHashPoolNode = &g_SHasherPool[strHashValue];
 	uint32 sameHashValueCnt = 0;
@@ -89,7 +89,7 @@ SHasherA::SHasherA(const char* inStr)
 
 	while (true)
 	{
-		if (strcmpi(curHashPoolNode->_str, inStr) == 0)
+		if (wcscmp(curHashPoolNode->_str, loweredStr) == 0)
 		{
 			_hashH = strHashValue;
 			_hashL = sameHashValueCnt;
@@ -114,14 +114,14 @@ SHasherA::SHasherA(const char* inStr)
 	_hashL = sameHashValueCnt;
 }
 
-bool SHasherA::operator==(SHasherA rhs) const
+bool SHasherW::operator==(SHasherW rhs) const
 {
-	if (this->_hashX == SHasherA::Empty._hashX ||
-		rhs._hashX == SHasherA::Empty._hashX) return false;
+	if (this->_hashX == SHasherW::Empty._hashX ||
+		rhs._hashX == SHasherW::Empty._hashX) return false;
 	return this->_hashX == rhs._hashX;
 }
 
-const char* SHasherA::C_Str(uint32* const outStrLen) const
+const utf16* SHasherW::C_Str(uint32* const outStrLen) const
 {
 	SHashPoolNode* curHashPoolNode = &g_SHasherPool[_hashH];
 

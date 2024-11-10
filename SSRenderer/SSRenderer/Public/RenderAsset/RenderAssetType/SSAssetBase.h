@@ -5,15 +5,15 @@
 class SSAssetBase : public SSNoncopyable
 {
 private:
-	SS::SHasherA _assetName;
-	SS::SHasherA _assetPath;
+	SS::SHasherW _assetName;
+	SS::SHasherW _assetPath;
 
 public:
-	SSAssetBase(SS::SHasherA InAssetName, SS::SHasherA InAssetPath);
+	SSAssetBase(SS::SHasherW InAssetName, SS::SHasherW InAssetPath);
 	SSAssetBase();
 	virtual ~SSAssetBase();
 
-	SS::SHasherA GetAssetName() const { return _assetName; }
-	SS::SHasherA GetAssetPath() const { return _assetPath; }
+	SS::SHasherW GetAssetName() const { return _assetName; }
+	SS::SHasherW GetAssetPath() const { return _assetPath; }
 };
 

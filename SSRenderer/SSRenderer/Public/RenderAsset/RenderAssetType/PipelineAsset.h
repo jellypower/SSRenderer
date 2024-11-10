@@ -5,14 +5,14 @@
 
 struct PipelineParameterSet
 {
-	SS::SHasherA VSName;
-	SS::SHasherA PSName;
+	SS::SHasherW VSName;
+	SS::SHasherW PSName;
 
 };
 
 class PipelineAsset : public SSAssetBase
 {
-	PipelineAsset(SS::SHasherA InName);
+	PipelineAsset(SS::SHasherW InName);
 
 protected:
 

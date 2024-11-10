@@ -9,7 +9,7 @@ void DX12RootSignatureAssetManager::Initialize()
 
 DX12RootSignatureAsset* DX12RootSignatureAssetManager::CreateTempRootSignature()
 {
-	DX12RootSignatureAsset* newRootSignature = DBG_NEW DX12RootSignatureAsset("tempRootSignature");
+	DX12RootSignatureAsset* newRootSignature = DBG_NEW DX12RootSignatureAsset(L"tempRootSignature");
 	
 
 	CD3DX12_DESCRIPTOR_RANGE ranges[1] = {};

@@ -1,4 +1,7 @@
 #include "UtilityFunctions.h"
+
+#include <locale>
+
 #include "SSDebugLogger.h"
 #include "Windows.h"
 
@@ -27,6 +30,19 @@ void SS::LowerStr(const char* inStr, char* outStr)
 	while(true)
 	{
 		outStr[Cnt++] = tolower(*inStr);
+		if (*inStr == '\0') break;
+		inStr++;
+	}
+}
+
+void SS::LowerStr(const wchar_t* inStr, wchar_t* outStr)
+{
+	int64 Cnt = 0;
+
+	
+	while (true)
+	{
+		outStr[Cnt++] = std::tolower(*inStr);
 		if (*inStr == '\0') break;
 		inStr++;
 	}

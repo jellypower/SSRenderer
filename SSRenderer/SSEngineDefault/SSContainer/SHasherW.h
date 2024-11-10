@@ -5,30 +5,30 @@
 
 
 namespace SS {
-	class SHasherA;
+	class SHasherW;
 
 	class SHashPoolNode
 	{
-		friend class SHasherA;
+		friend class SHasherW;
 	private:
-		char* _str = nullptr;
+		utf16* _str = nullptr;
 		uint32 _strLen = 0;
 		SHashPoolNode* _next = nullptr;
 
 	public:
 		SHashPoolNode();
-		SHashPoolNode(const char* str, uint32 inStrLen);
+		SHashPoolNode(const utf16* str, uint32 inStrLen);
 	};
 }
 
 namespace SS {
 
 	// String Hasher -> 미리 해싱된 String값을 비교하여 스트링 비교 효율을 높혀주는 클래스
-	class SHasherA
+	class SHasherW
 	{
 		friend void ::EngineEndFrame();
 	public:
-		static SHasherA Empty;
+		static SHasherW Empty;
 	private:
 		static SHashPoolNode* g_SHasherPool;
 		static uint32 g_sHasherPoolCnt;
@@ -45,10 +45,10 @@ namespace SS {
 
 
 	public:
-		SHasherA(const char* str);
+		SHasherW(const utf16* str);
 
-		bool operator==(SHasherA rhs) const;
-		const char* C_Str(uint32* const outStrLen = nullptr) const;
+		bool operator==(SHasherW rhs) const;
+		const utf16* C_Str(uint32* const outStrLen = nullptr) const;
 		uint64 GetDirectValue() const { return _hashX; }
 
 	private:

@@ -12,12 +12,12 @@ void DX12ShaderAssetManager::Initialize()
 
 ShaderAsset* DX12ShaderAssetManager::CreateTempVertexShader()
 {
-	DX12ShaderAsset* newShaderAsset = DBG_NEW DX12ShaderAsset("TempVertexShader", "Resource/Shader/tempShader.hlsl", "VSMain", EShaderType::VertexShader);
+	DX12ShaderAsset* newShaderAsset = DBG_NEW DX12ShaderAsset(L"TempVertexShader", L"Resource/Shader/tempShader.hlsl", "VSMain", EShaderType::VertexShader);
 	return newShaderAsset;
 }
 
 ShaderAsset* DX12ShaderAssetManager::CreateTempPixelShader()
 {
-	DX12ShaderAsset* newShaderAsset = DBG_NEW DX12ShaderAsset("TempPixelShader", "Resource/Shader/tempShader.hlsl", "PSMain", EShaderType::PixelShader);
+	DX12ShaderAsset* newShaderAsset = DBG_NEW DX12ShaderAsset(L"TempPixelShader", L"Resource/Shader/tempShader.hlsl", "PSMain", EShaderType::PixelShader);
 	return newShaderAsset;
 }

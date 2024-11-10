@@ -10,7 +10,7 @@ int32 HashValue(int64 inValue)
 	return static_cast<int32>(inValue);
 }
 
-int32 HashValue(const SS::SHasherA& inValue)
+int32 HashValue(const SS::SHasherW& inValue)
 {
 	return static_cast<int32>(inValue.GetDirectValue());
 }

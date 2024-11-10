@@ -1,13 +1,13 @@
 #include "SSAssetBase.h"
 
 
-SSAssetBase::SSAssetBase(SS::SHasherA InAssetName, SS::SHasherA  InAssetPath)
+SSAssetBase::SSAssetBase(SS::SHasherW InAssetName, SS::SHasherW  InAssetPath)
 	: _assetName(InAssetName), _assetPath(InAssetPath)
 {
 }
 
 SSAssetBase::SSAssetBase()
-	: _assetName(SS::SHasherA::Empty), _assetPath(SS::SHasherA::Empty)
+	: _assetName(SS::SHasherW::Empty), _assetPath(SS::SHasherW::Empty)
 {
 }
 

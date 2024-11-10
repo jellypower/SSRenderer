@@ -36,7 +36,7 @@
     <ClInclude Include="SSEngineDefault\SSContainer\PooledList.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SSEngineDefault\SSContainer\SHasherA.h">
+    <ClInclude Include="SSEngineDefault\SSContainer\SHasherW.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SSEngineDefault\SSContainer\SSUtilityContainer.h">
@@ -1049,7 +1049,7 @@
     <ClCompile Include="SSEngineDefault\SSContainer\CityHash.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SSEngineDefault\SSContainer\SHasherA.cpp">
+    <ClCompile Include="SSEngineDefault\SSContainer\SHasherW.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SSEngineDefault\SSFrameInfo.cpp">

@@ -5,7 +5,7 @@
 class DX12ShaderAsset : public ShaderAsset
 {
 public:
-	DX12ShaderAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath, const char* entryPoint, EShaderType InShaderType);
+	DX12ShaderAsset(SS::SHasherW InAssetName, SS::SHasherW InAssetPath, const char* entryPoint, EShaderType InShaderType);
 	virtual ~DX12ShaderAsset();
 
 	ID3DBlob* GetCompiledShader() const { return _compiledShader; }

@@ -1,6 +1,6 @@
 #include "MaterialAsset.h"
 
-MaterialAsset::MaterialAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath) :
+MaterialAsset::MaterialAsset(SS::SHasherW InAssetName, SS::SHasherW InAssetPath) :
 	SSAssetBase(InAssetName, InAssetPath)
 {
 

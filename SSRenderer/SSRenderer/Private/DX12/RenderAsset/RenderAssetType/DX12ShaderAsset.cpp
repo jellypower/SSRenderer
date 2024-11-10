@@ -3,7 +3,7 @@
 
 #include <d3dcompiler.h>
 
-DX12ShaderAsset::DX12ShaderAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath, const char* entryPoint, EShaderType InShaderType) :
+DX12ShaderAsset::DX12ShaderAsset(SS::SHasherW InAssetName, SS::SHasherW InAssetPath, const char* entryPoint, EShaderType InShaderType) :
 	ShaderAsset(InAssetName, InAssetPath, entryPoint, InShaderType)
 {
 }
@@ -29,10 +29,7 @@ bool DX12ShaderAsset::CompileShader()
 	ID3DBlob* errorBlob = nullptr;
 
 	uint32 strLen = 0;
-	const char* AssetPathA = GetAssetPath().C_Str(&strLen);
-
-	utf16 shaderPath[256];
-	SS::CharStrToUTF16Str(AssetPathA, strLen, shaderPath, 256);
+	const wchar_t* AssetPathW = GetAssetPath().C_Str(&strLen);
 
 
 	const char* shaderTargetName = nullptr;
@@ -49,7 +46,7 @@ bool DX12ShaderAsset::CompileShader()
 		break;
 	}
 
-	if (FAILED(D3DCompileFromFile(shaderPath, nullptr, nullptr, _entryPointName.C_Str(), shaderTargetName, compileFlags, 0, &_compiledShader, &errorBlob)))
+	if (FAILED(D3DCompileFromFile(AssetPathW, nullptr, nullptr, _entryPointName.C_Str(), shaderTargetName, compileFlags, 0, &_compiledShader, &errorBlob)))
 	{
 		const char* errorStr = nullptr;
 		if (errorBlob != nullptr)

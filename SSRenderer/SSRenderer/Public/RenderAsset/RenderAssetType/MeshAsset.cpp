@@ -1,6 +1,6 @@
 #include "MeshAsset.h"
 
-MeshAsset::MeshAsset(SS::SHasherA InAssetName, SS::SHasherA InAssetPath) :
+MeshAsset::MeshAsset(SS::SHasherW InAssetName, SS::SHasherW InAssetPath) :
 	SSAssetBase(InAssetName, InAssetPath)
 
 {

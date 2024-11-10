@@ -458,7 +458,7 @@
     <ClInclude Include="SSEngineDefault\SSContainer\FixedList.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\PooledLinkedList.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\PooledList.h" />
-    <ClInclude Include="SSEngineDefault\SSContainer\SHasherA.h" />
+    <ClInclude Include="SSEngineDefault\SSContainer\SHasherW.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\SSUtilityContainer.h" />
     <ClInclude Include="SSEngineDefault\SSContainer\StringHashMapA.h" />
     <ClInclude Include="SSEngineDefault\SSDebugLogger.h" />
@@ -511,7 +511,7 @@
     <ClCompile Include="SSRenderer\Public\RenderBase\ISSRenderer.cpp" />
     <ClCompile Include="SSRenderer\Private\DX12\Renderer\SSDX12Renderer.cpp" />
     <ClCompile Include="SSEngineDefault\SSContainer\CityHash.cpp" />
-    <ClCompile Include="SSEngineDefault\SSContainer\SHasherA.cpp" />
+    <ClCompile Include="SSEngineDefault\SSContainer\SHasherW.cpp" />
     <ClCompile Include="SSEngineDefault\SSFrameInfo.cpp" />
     <ClCompile Include="SSEngineDefault\SSInput.cpp" />
     <ClCompile Include="SSEngineDefault\SSStaticMath.cpp" />

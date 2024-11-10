@@ -1,6 +1,6 @@
 #include "PipelineAsset.h"
 
-PipelineAsset::PipelineAsset(SS::SHasherA InName) :
-	SSAssetBase(InName, "NoPath")
+PipelineAsset::PipelineAsset(SS::SHasherW InName) :
+	SSAssetBase(InName, L"NoPath")
 {
 }

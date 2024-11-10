@@ -8,7 +8,7 @@ void DX12MeshAssetManager::Initialize()
 
 MeshAsset* DX12MeshAssetManager::CreateTempMeshAsset()
 {
-	DX12MeshAsset* newMeshAsset = DBG_NEW DX12MeshAsset("TempMesh", "NoPath");
+	DX12MeshAsset* newMeshAsset = DBG_NEW DX12MeshAsset(L"TempMesh", L"NoPath");
 
 
 	return newMeshAsset;
